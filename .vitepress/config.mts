@@ -45,22 +45,41 @@ const englishSidebar = {
   '/en/guide/': [
     {
       text: 'Getting started',
+      collapsible: true,
+      collapsed: false,
       items: [
-        { text: 'Quickstart', link: '/en/guide/quickstart' },
-        { text: 'Installation', link: '/en/guide/install' },
-        { text: 'User guide', link: '/en/guide/user-guide' },
-      ],
-    },
-    {
-      text: 'Using UMC',
-      items: [
-        { text: 'CLI reference', link: '/en/guide/cli' },
-        { text: 'Instances', link: '/en/guide/instances' },
-        { text: 'Java runtimes', link: '/en/guide/java' },
-        { text: 'Launching and processes', link: '/en/guide/launching' },
-        { text: 'Tasks and the local daemon', link: '/en/guide/tasks-and-daemon' },
-        { text: 'Data, logs, and backups', link: '/en/guide/data-and-logs' },
-        { text: 'Troubleshooting', link: '/en/guide/troubleshooting' },
+        {
+          text: 'Quickstart',
+          collapsible: true,
+          collapsed: true,
+          items: [{ text: 'Launch your first game', link: '/en/guide/quickstart' }],
+        },
+        {
+          text: 'Install UMC',
+          collapsible: true,
+          collapsed: true,
+          items: [
+            { text: 'Linux', link: '/en/guide/install' },
+            { text: 'Windows (planned)', link: '/en/guide/platforms/windows' },
+            { text: 'macOS (planned)', link: '/en/guide/platforms/macos' },
+          ],
+        },
+        {
+          text: 'User guide',
+          collapsible: true,
+          collapsed: true,
+          items: [
+            { text: 'Capabilities and concepts', link: '/en/guide/user-guide' },
+            { text: 'Managing instances', link: '/en/guide/instances' },
+            { text: 'Java runtimes', link: '/en/guide/java' },
+            { text: 'Accounts', link: '/en/guide/accounts' },
+            { text: 'Launching and processes', link: '/en/guide/launching' },
+            { text: 'Tasks and background work', link: '/en/guide/tasks-and-daemon' },
+            { text: 'Data, logs, and backups', link: '/en/guide/data-and-logs' },
+            { text: 'Command reference', link: '/en/guide/cli' },
+            { text: 'Troubleshooting', link: '/en/guide/troubleshooting' },
+          ],
+        },
       ],
     },
   ],
@@ -122,22 +141,41 @@ const chineseSidebar = {
   '/zh/guide/': [
     {
       text: '开始',
+      collapsible: true,
+      collapsed: false,
       items: [
-        { text: '快速开始', link: '/zh/guide/quickstart' },
-        { text: '安装', link: '/zh/guide/install' },
-        { text: '用户指南', link: '/zh/guide/user-guide' },
-      ],
-    },
-    {
-      text: '使用 UMC',
-      items: [
-        { text: 'CLI 参考', link: '/zh/guide/cli' },
-        { text: '实例', link: '/zh/guide/instances' },
-        { text: 'Java 运行时', link: '/zh/guide/java' },
-        { text: '启动与进程', link: '/zh/guide/launching' },
-        { text: '任务与守护进程', link: '/zh/guide/tasks-and-daemon' },
-        { text: '数据、日志与备份', link: '/zh/guide/data-and-logs' },
-        { text: '故障排查', link: '/zh/guide/troubleshooting' },
+        {
+          text: '快速开始',
+          collapsible: true,
+          collapsed: true,
+          items: [{ text: '启动第一个游戏', link: '/zh/guide/quickstart' }],
+        },
+        {
+          text: '安装 UMC',
+          collapsible: true,
+          collapsed: true,
+          items: [
+            { text: 'Linux', link: '/zh/guide/install' },
+            { text: 'Windows（计划中）', link: '/zh/guide/platforms/windows' },
+            { text: 'macOS（计划中）', link: '/zh/guide/platforms/macos' },
+          ],
+        },
+        {
+          text: '用户指南',
+          collapsible: true,
+          collapsed: true,
+          items: [
+            { text: '能力与概念', link: '/zh/guide/user-guide' },
+            { text: '管理实例', link: '/zh/guide/instances' },
+            { text: 'Java 运行时', link: '/zh/guide/java' },
+            { text: '账号', link: '/zh/guide/accounts' },
+            { text: '启动与进程', link: '/zh/guide/launching' },
+            { text: '任务与后台运行', link: '/zh/guide/tasks-and-daemon' },
+            { text: '数据、日志与备份', link: '/zh/guide/data-and-logs' },
+            { text: '命令参考', link: '/zh/guide/cli' },
+            { text: '故障排查', link: '/zh/guide/troubleshooting' },
+          ],
+        },
       ],
     },
   ],
