@@ -1,0 +1,702 @@
+/* ---------------------------------------------------------------------------
+   UMC docs theme
+   A VitePress theme tuned to match the clean, compact documentation style used
+   by the DeepSeek Harness guide: Inter typography, indigo accents, a quiet
+   two-column layout, and dark code blocks in both color schemes.
+--------------------------------------------------------------------------- */
+
+:root {
+  --vp-font-family-base: 'Inter', ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  --vp-c-brand-1: #3451b2;
+  --vp-c-brand-2: #3a5ccc;
+  --vp-c-brand-3: #5672cd;
+  --vp-c-brand-soft: rgba(100, 108, 255, 0.14);
+
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-alt: #f6f6f7;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-bg-soft: #f6f6f7;
+  --vp-c-border: #c2c2c4;
+  --vp-c-divider: #e2e2e3;
+  --vp-c-gutter: #e2e2e3;
+  --vp-c-text-1: #3c3c43;
+  --vp-c-text-2: #67676c;
+  --vp-c-text-3: #929295;
+  --vp-c-default-soft: rgba(142, 150, 170, 0.14);
+
+  --vp-nav-height: 64px;
+  --vp-sidebar-width: 272px;
+  --vp-layout-max-width: 1440px;
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #3451b2 0%,
+    #4f63e8 48%,
+    #12a67a 100%
+  );
+  --vp-home-hero-image-background-image: radial-gradient(
+    circle at 50% 50%,
+    rgba(94, 112, 255, 0.34),
+    rgba(34, 201, 151, 0.16) 45%,
+    transparent 72%
+  );
+  --vp-home-hero-image-filter: blur(56px);
+}
+
+.dark {
+  --vp-c-brand-1: #a8b1ff;
+  --vp-c-brand-2: #7c8cff;
+  --vp-c-brand-3: #5c73e7;
+  --vp-c-brand-soft: rgba(100, 108, 255, 0.16);
+
+  --vp-c-bg: #1b1b1f;
+  --vp-c-bg-alt: #161618;
+  --vp-c-bg-elv: #202127;
+  --vp-c-bg-soft: #202127;
+  --vp-c-border: #3c3f44;
+  --vp-c-divider: #2e2e32;
+  --vp-c-gutter: #000000;
+  --vp-c-text-1: #dfdfd6;
+  --vp-c-text-2: #98989f;
+  --vp-c-text-3: #6a6a71;
+  --vp-c-default-soft: rgba(101, 117, 133, 0.16);
+
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #a8b1ff 0%,
+    #7c8cff 46%,
+    #3dd68c 100%
+  );
+  --vp-home-hero-image-background-image: radial-gradient(
+    circle at 50% 50%,
+    rgba(94, 112, 255, 0.38),
+    rgba(34, 201, 151, 0.15) 48%,
+    transparent 72%
+  );
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(94, 112, 255, 0.24);
+}
+
+/* ---------------------------------------------------------------- Nav bar -- */
+
+.VPNavBar {
+  border-bottom: 1px solid var(--vp-c-divider);
+  background-color: color-mix(in srgb, var(--vp-c-bg) 82%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+}
+.VPNavBar.has-sidebar .curtain {
+  display: none;
+}
+.VPNavBarTitle .title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: 14.5px;
+  white-space: nowrap;
+  min-width: 0;
+}
+.VPNavBarTitle .title > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.VPNavBarTitle .logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+}
+@media (min-width: 1200px) {
+  .VPNavBarTitle {
+    flex-shrink: 0;
+  }
+  .VPNavBarTitle .title > span {
+    overflow: visible;
+    text-overflow: clip;
+  }
+}
+/* The landing pages use a language switch in place of search. */
+.VPNavBar.home .VPNavBarSearch,
+.umc-landing .VPNavBarSearch {
+  display: none !important;
+}
+
+/* UMC uses its own EN / 中文 segmented switch instead of the built-in menu. */
+.VPNavBarTranslations,
+.VPNavScreenTranslations {
+  display: none !important;
+}
+.VPNavBarMenuLink {
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.VPNavBarMenuLink.active {
+  color: var(--vp-c-brand-1);
+}
+
+/* Download is a quiet solid pill in the top navigation. */
+.VPNavBarMenu a[href*='/guide/install'],
+.VPNavScreenMenu a[href*='/guide/install'] {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  height: 34px;
+  margin-left: 10px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: var(--vp-c-brand-1);
+  color: var(--vp-c-bg) !important;
+  font-weight: 650;
+  line-height: 1;
+  box-sizing: border-box;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.dark .VPNavBarMenu a[href*='/guide/install'],
+.dark .VPNavScreenMenu a[href*='/guide/install'] {
+  color: #0b0d12 !important;
+}
+.VPNavBarMenu a[href*='/guide/install']:hover {
+  background: var(--vp-c-brand-2);
+  transform: translateY(-1px);
+}
+
+@media (min-width: 768px) {
+  .VPNavBar .content-body {
+    justify-content: flex-end;
+  }
+  .VPNavBarSearch {
+    flex-grow: 0;
+    order: 9;
+    margin-left: 4px;
+    padding-left: 0;
+  }
+  .VPNavBarMenu {
+    order: 1;
+  }
+  .VPNavBarSocialLinks {
+    order: 2;
+  }
+  .VPNavBarAppearance {
+    order: 3;
+  }
+}
+
+.VPSocialLink {
+  color: var(--vp-c-text-2);
+}
+.VPSocialLink:hover {
+  color: var(--vp-c-brand-1);
+}
+
+/* Search */
+.DocSearch-Button,
+.VPNavBarSearch .DocSearch-Button {
+  border-radius: 9px;
+}
+.VPNavBarSearch .DocSearch-Button {
+  background: var(--vp-c-bg-alt);
+  border: 1px solid var(--vp-c-divider);
+}
+
+/* ---------------------------------------------------------------- Sidebar -- */
+
+.VPSidebar {
+  padding-top: 28px;
+  background: transparent;
+}
+.VPSidebar .group + .group {
+  padding-top: 22px;
+}
+.VPSidebarItem.level-0 > .item > .text {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+}
+.VPSidebarItem.level-1 > .item {
+  border-radius: 7px;
+  padding: 2px 8px;
+  margin-left: -8px;
+  transition: background 0.15s ease;
+}
+.VPSidebarItem.level-1 > .item:hover {
+  background: var(--vp-c-default-soft);
+}
+.VPSidebarItem.level-1 .text {
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.VPSidebarItem.level-1.is-active > .item .text {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+}
+.VPSidebarItem.level-1.is-active > .item {
+  background: var(--vp-c-brand-soft);
+}
+.VPSidebarItem.level-1.is-active > .item .link .text {
+  color: var(--vp-c-brand-1);
+}
+
+/* --------------------------------------------------------------- Content -- */
+
+.VPDoc .container {
+  max-width: 1180px;
+}
+.VPDoc .content {
+  padding-bottom: 80px;
+}
+.VPDoc .content-container {
+  max-width: 730px;
+}
+.VPDoc.has-aside .content-container {
+  max-width: 730px;
+}
+
+.vp-doc h1 {
+  margin: 8px 0 16px;
+  font-size: 31px;
+  line-height: 1.22;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--vp-c-text-1);
+}
+.vp-doc h2 {
+  margin: 44px 0 14px;
+  padding-top: 26px;
+  font-size: 22px;
+  line-height: 1.32;
+  font-weight: 650;
+  letter-spacing: -0.018em;
+  border-top: 1px solid var(--vp-c-divider);
+}
+.vp-doc h3 {
+  margin: 30px 0 10px;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.008em;
+}
+.vp-doc h4 {
+  font-size: 15px;
+  font-weight: 650;
+}
+.vp-doc p,
+.vp-doc li {
+  font-size: 15px;
+  line-height: 1.76;
+}
+.vp-doc p {
+  margin: 14px 0;
+}
+.vp-doc strong {
+  font-weight: 650;
+  color: var(--vp-c-text-1);
+}
+.vp-doc a {
+  font-weight: 500;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.vp-doc a:hover {
+  color: var(--vp-c-brand-2);
+}
+
+/* Inline code */
+.vp-doc :not(pre) > code {
+  font-size: 12.8px;
+  font-weight: 500;
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+.dark .vp-doc :not(pre) > code {
+  color: #b8c0ff;
+}
+
+/* Code blocks — kept dark in both schemes, like the reference guide. */
+.vp-doc div[class*='language-'] {
+  margin: 20px 0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 11px;
+  background-color: #1b1b1f;
+  box-shadow: 0 18px 40px -30px rgba(0, 0, 0, 0.55);
+}
+.vp-doc div[class*='language-'] pre {
+  padding: 18px 0;
+}
+.vp-doc div[class*='language-'] code {
+  font-size: 12.8px;
+  line-height: 1.85;
+}
+.vp-doc div[class*='language-'] > span.lang,
+.vp-doc div[class*='language-'] > button.copy {
+  color: #a8b1ff;
+}
+.vp-doc div[class*='language-'] > span.lang {
+  color: #8b93a7;
+}
+
+/* Tables */
+.vp-doc table {
+  display: table;
+  width: 100%;
+  margin: 22px 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.vp-doc th,
+.vp-doc td {
+  border: none;
+  border-bottom: 1px solid var(--vp-c-divider);
+  padding: 10px 14px;
+  font-size: 13.5px;
+}
+.vp-doc tr:last-child td {
+  border-bottom: none;
+}
+.vp-doc th {
+  background: var(--vp-c-bg-soft);
+  font-weight: 650;
+  font-size: 12.5px;
+  color: var(--vp-c-text-2);
+}
+.vp-doc tr {
+  background: transparent;
+}
+.vp-doc tr:nth-child(2n) {
+  background: transparent;
+}
+
+/* Blockquotes and custom containers */
+.vp-doc blockquote {
+  margin: 18px 0;
+  padding: 2px 0 2px 16px;
+  border-left: 3px solid var(--vp-c-brand-1);
+  color: var(--vp-c-text-2);
+  background: transparent;
+}
+.vp-doc blockquote > p {
+  font-size: 14.5px;
+}
+
+.custom-block {
+  border-radius: 10px;
+  border-width: 1px;
+  padding: 16px 18px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.custom-block .custom-block-title {
+  font-weight: 650;
+}
+.custom-block.tip {
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 30%, var(--vp-c-divider));
+  background: var(--vp-c-brand-soft);
+}
+.custom-block.warning {
+  border-color: rgba(218, 139, 23, 0.35);
+  background: rgba(234, 179, 8, 0.1);
+}
+.custom-block.danger {
+  border-color: rgba(244, 63, 94, 0.35);
+  background: rgba(244, 63, 94, 0.09);
+}
+
+/* Outline */
+.VPDocAsideOutline .outline-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+}
+.VPDocAsideOutline .outline-link {
+  font-size: 12.5px;
+}
+.VPDocAsideOutline .outline-link.active {
+  color: var(--vp-c-brand-1);
+}
+
+/* Pagination and edit link */
+.VPDocFooter .edit-link-button {
+  font-size: 12.5px;
+}
+.pager-link {
+  border-radius: 10px;
+}
+.pager-link:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+/* ------------------------------------------------------------ Home page -- */
+
+.VPHome {
+  position: relative;
+}
+.VPHomeHero {
+  position: relative;
+  padding-top: 84px !important;
+  padding-bottom: 72px !important;
+}
+.VPHomeHero::before {
+  content: '';
+  position: absolute;
+  inset: -64px 0 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(ellipse 55% 48% at 78% 18%, rgba(94, 112, 255, 0.14), transparent 68%),
+    radial-gradient(ellipse 42% 42% at 18% 82%, rgba(34, 201, 151, 0.1), transparent 68%),
+    linear-gradient(to right, var(--vp-c-divider) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--vp-c-divider) 1px, transparent 1px);
+  background-size: auto, auto, 64px 64px, 64px 64px;
+  opacity: 0.5;
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 30%, #000 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 30%, #000 30%, transparent 78%);
+}
+.dark .VPHomeHero::before {
+  background-image:
+    radial-gradient(ellipse 55% 48% at 78% 18%, rgba(94, 112, 255, 0.2), transparent 68%),
+    radial-gradient(ellipse 42% 42% at 18% 82%, rgba(34, 201, 151, 0.12), transparent 68%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: auto, auto, 64px 64px, 64px 64px;
+  opacity: 0.8;
+}
+
+.VPHomeHero .container {
+  max-width: 1240px !important;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
+}
+.VPHomeHero .main {
+  max-width: 640px;
+}
+.VPHomeHero .name {
+  font-size: clamp(52px, 7.2vw, 82px);
+  line-height: 0.98;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  padding-bottom: 8px;
+}
+.VPHomeHero .text {
+  max-width: 580px;
+  font-size: clamp(34px, 4.6vw, 50px);
+  line-height: 1.08;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  color: var(--vp-c-text-1);
+}
+.VPHomeHero .tagline {
+  max-width: 560px;
+  padding-top: 18px;
+  font-size: 16.5px;
+  line-height: 1.72;
+  color: var(--vp-c-text-2);
+}
+.VPHomeHero .actions {
+  padding-top: 28px;
+  gap: 12px;
+}
+.VPHomeHero .action .VPButton {
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 42px;
+  font-size: 13.5px;
+  font-weight: 650;
+}
+.VPHomeHero .VPButton.brand {
+  border-color: transparent;
+  background: #4f63e8;
+  color: #fff;
+  box-shadow: 0 14px 30px -14px rgba(79, 99, 232, 0.75);
+}
+.VPHomeHero .VPButton.brand:hover {
+  background: #4356d6;
+  border-color: transparent;
+}
+.VPHomeHero .VPButton.alt {
+  background: var(--vp-c-bg);
+  border-color: var(--vp-c-divider);
+  color: var(--vp-c-text-1);
+}
+.VPHomeHero .VPButton.alt:hover {
+  border-color: var(--vp-c-brand-1);
+}
+.VPHomeHero .image {
+  margin: 0;
+  min-width: 0;
+}
+.VPHomeHero .image-bg {
+  display: none;
+}
+.VPHomeHero .image-container {
+  transform: none;
+}
+
+.umc-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 5px 12px 5px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--vp-c-divider);
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 75%, transparent);
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: 0.005em;
+  backdrop-filter: blur(8px);
+}
+.umc-hero-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c997;
+  box-shadow: 0 0 0 3px rgba(34, 201, 151, 0.14);
+}
+
+/* Feature cards */
+.VPHomeFeatures {
+  padding-top: 8px !important;
+  padding-bottom: 24px !important;
+}
+.VPHomeFeatures .container {
+  max-width: 1152px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+.VPFeatures .items {
+  gap: 0;
+}
+.VPFeature .icon img {
+  width: 22px;
+  height: 22px;
+}
+.VPFeature {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  background: var(--vp-c-bg-soft);
+  padding: 24px;
+  transition: border-color 0.25s ease, transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.VPFeature:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 45%, var(--vp-c-divider));
+  box-shadow: 0 22px 44px -30px rgba(52, 81, 178, 0.55);
+}
+.VPFeature .icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--vp-c-brand-soft);
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 20%, transparent);
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.VPFeature .title {
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.VPFeature .details {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--vp-c-text-2);
+  padding-top: 8px;
+}
+
+/* Footer */
+.VPFooter {
+  border-top: 1px solid var(--vp-c-divider);
+  padding: 30px 24px 42px;
+  font-size: 12.5px;
+}
+.VPFooter .message,
+.VPFooter .copyright {
+  color: var(--vp-c-text-3);
+}
+
+/* ------------------------------------------------------------- Responsive -- */
+
+@media (max-width: 960px) {
+  .VPHomeHero {
+    padding-top: calc(var(--vp-nav-height) + 24px) !important;
+    padding-bottom: 24px !important;
+  }
+  .VPHomeHero .container {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  .VPHomeHero .main {
+    order: 1;
+  }
+  .VPHomeHero .image {
+    order: 2;
+    margin-top: 24px;
+  }
+  .VPFeatures .item.grid-6,
+  .VPFeatures .item.grid-4 {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .VPNavBarMenu {
+    display: none;
+  }
+  .VPNavBarTitle .title {
+    max-width: 184px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 11.5px;
+  }
+  .VPHomeHero {
+    padding-top: calc(var(--vp-nav-height) + 16px) !important;
+  }
+  .VPHomeHero .tagline {
+    font-size: 15.5px;
+  }
+  .VPHomeHero .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .VPHomeHero .action {
+    width: 100%;
+  }
+  .VPHomeHero .action .VPButton {
+    width: 100%;
+  }
+  .VPFeatures .item[class*='grid-'] {
+    width: 100% !important;
+  }
+  .VPDoc .content-container {
+    max-width: 100%;
+  }
+  .vp-doc h1 {
+    font-size: 27px;
+  }
+  .vp-doc h2 {
+    font-size: 20px;
+  }
+}
