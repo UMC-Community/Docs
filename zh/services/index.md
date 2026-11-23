@@ -4,15 +4,15 @@ source: en/services/index.md
 
 # 可选服务
 
-UMC 提供一组可以独立部署的配套服务。它们都不是安装或启动 Minecraft 的必需组件，社区和启动器开发者可以只运行自己需要的部分。
+UMC-Community 维护一组可以独立部署的配套服务。它们都不是安装或启动 Minecraft 的必需组件，社区和启动器开发者可以只运行自己需要的部分。
 
-UMC Auth 和首版 UMC 镜像站都有 Docker Compose 部署，可与启动器部署在一起、放在 HTTPS 反向代理后，或部署到单独的主机。Java 版服务器仍在规划中，尚未打包。
+UMC-Auth 和 UMC-Mirror 是独立仓库，并提供 Docker Compose 部署。它们可以与启动器部署在一起、放在 HTTPS 反向代理后，或部署到单独的主机。Java 版服务器仍在规划中，尚未打包。
 
 | 服务 | 状态 | 用途 |
 |---|---|---|
-| [UMC Auth](./auth) | 账号系统已实现 | 账号 API、Vue 用户中心/管理面板、可选 Stalwart 邮件和 Yggdrasil 兼容认证 |
+| [UMC Auth](https://github.com/UMC-Community/UMC-Auth) · [指南](./auth) | 账号系统已实现 | 账号 API、Vue 用户中心/管理面板、可选 Stalwart 邮件和 Yggdrasil 兼容认证 |
 | [Java 版游戏服务器](./java-server) | 计划中 | 用 Docker 运行 Minecraft: Java Edition 服务端 |
-| [镜像站](./mirror) | 初步实现 | 仅 HTTPS 上游、下载前 SHA-1 校验的 Go 对象缓存 |
+| [UMC 镜像站](https://github.com/UMC-Community/UMC-Mirror) · [指南](./mirror) | 初步实现 | 仅 HTTPS 上游、下载前 SHA-1 校验的 Go 对象缓存 |
 
 ## 设计原则
 

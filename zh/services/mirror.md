@@ -4,7 +4,7 @@ source: en/services/mirror.md
 
 # UMC 镜像站
 
-UMC 镜像站是一个可选的 Go 服务，从已配置的上游提供方获取不可变的 Minecraft 构件，按预期 SHA-1 校验每个对象，并且只缓存校验通过的数据。它已有 Docker Compose 部署方式。UMC Core 目前还不会自动使用它。
+UMC 镜像站是一个可选的 Go 服务，从已配置的上游提供方获取不可变的 Minecraft 构件，按预期 SHA-1 校验每个对象，并且只缓存校验通过的数据。它已有 Docker Compose 部署方式。源码和部署文件位于 [UMC-Mirror 仓库](https://github.com/UMC-Community/UMC-Mirror)。UMC Core 目前还不会自动使用它。
 
 ## 状态与完整性模型
 
@@ -36,7 +36,7 @@ https://mirror.example.org/v1/objects/mojang-data/<sha1>/v1/objects/<sha1>/clien
 
 路径中的 `provider` 和 `sha1` 分别选择已允许的 HTTPS 上游及预期摘要。剩余路径会追加到该上游的基础 URL。响应带有 ETag 和不可变缓存头。摘要不匹配时返回 `502`，并且不会留下缓存文件。
 
-提供方配置位于 `services/mirror/providers.json`。如果上游会重定向到 CDN，请先将重定向目标主机加入提供方配置。
+提供方配置位于仓库根目录的 `providers.json`。如果上游会重定向到 CDN，请先将重定向目标主机加入提供方配置。
 
 ## Docker Compose
 

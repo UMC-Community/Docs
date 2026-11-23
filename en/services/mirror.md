@@ -2,7 +2,9 @@
 
 UMC Mirror is an optional Go service that fetches immutable Minecraft artifacts from configured
 upstream providers, verifies each object against an expected SHA-1, and caches only verified bytes.
-It has a Docker Compose deployment. UMC Core does not use it automatically yet.
+It has a Docker Compose deployment. Its source and deployment files are in the
+[UMC-Mirror repository](https://github.com/UMC-Community/UMC-Mirror). UMC Core does not use it
+automatically yet.
 
 ## Status and integrity model
 
@@ -44,7 +46,7 @@ The `provider` and `sha1` path components select an allowlisted HTTPS origin and
 digest. The remaining path is appended to that provider's base URL. Responses include an ETag and
 immutable cache headers. A digest mismatch returns `502` and leaves no cached object.
 
-Configured providers are listed in `services/mirror/providers.json`. Add redirect destination hosts
+Configured providers are listed in the repository-root `providers.json`. Add redirect destination hosts
 as provider entries before enabling upstreams that redirect to a CDN.
 
 ## Docker Compose

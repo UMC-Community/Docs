@@ -1,17 +1,17 @@
 # Optional services
 
-UMC ships a small set of independently deployable companion services. None of them are required to
-install or launch Minecraft; communities and launcher developers can run only the pieces they need.
+UMC-Community maintains independently deployable companion services. None are required to install
+or launch Minecraft; communities and launcher developers can run only the pieces they need.
 
-UMC Auth and the initial UMC Mirror implementation have Docker Compose deployments. They can run
-next to the launcher, behind HTTPS, or on separate hosts. The Java Edition server is planned and is
-not packaged yet.
+UMC-Auth and UMC-Mirror are separate repositories with Docker Compose deployments. They can run next
+to the launcher, behind HTTPS, or on separate hosts. The Java Edition server is planned and is not
+packaged yet.
 
 | Service | Status | Purpose |
 |---|---|---|
-| [UMC Auth](./auth) | Account system implemented | Account API, Vue user center/admin panel, optional Stalwart mail, and Yggdrasil-compatible authentication |
+| [UMC Auth](https://github.com/UMC-Community/UMC-Auth) · [Guide](./auth) | Account system implemented | Account API, Vue user center/admin panel, optional Stalwart mail, and Yggdrasil-compatible authentication |
 | [Java Edition server](./java-server) | Planned | Dockerized Minecraft: Java Edition server |
-| [Mirror](./mirror) | Initial implementation | HTTPS-only Go cache with SHA-1 verification for configured upstream objects |
+| [UMC Mirror](https://github.com/UMC-Community/UMC-Mirror) · [Guide](./mirror) | Initial implementation | HTTPS-only Go cache with SHA-1 verification for configured upstream objects |
 
 ## Design principles
 
