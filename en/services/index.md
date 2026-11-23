@@ -10,7 +10,7 @@ packaged yet.
 | Service | Status | Purpose |
 |---|---|---|
 | [UMC Auth](https://github.com/UMC-Community/UMC-Auth) · [Guide](./auth) | Account system implemented | Account API, Vue user center/admin panel, optional Stalwart mail, and Yggdrasil-compatible authentication |
-| [Java Edition server](./java-server) | Planned | Dockerized Minecraft: Java Edition server |
+| [UMC Java Server](https://github.com/UMC-Community/UMC-Java-Server) · [Guide](./java-server) | Planned | Dockerized Minecraft: Java Edition server |
 | [UMC Mirror](https://github.com/UMC-Community/UMC-Mirror) · [Guide](./mirror) | Initial implementation | HTTPS-only Go cache with SHA-1 verification for configured upstream objects |
 
 ## Design principles

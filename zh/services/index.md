@@ -11,7 +11,7 @@ UMC-Auth 和 UMC-Mirror 是独立仓库，并提供 Docker Compose 部署。它�
 | 服务 | 状态 | 用途 |
 |---|---|---|
 | [UMC Auth](https://github.com/UMC-Community/UMC-Auth) · [指南](./auth) | 账号系统已实现 | 账号 API、Vue 用户中心/管理面板、可选 Stalwart 邮件和 Yggdrasil 兼容认证 |
-| [Java 版游戏服务器](./java-server) | 计划中 | 用 Docker 运行 Minecraft: Java Edition 服务端 |
+| [UMC-Java-Server](https://github.com/UMC-Community/UMC-Java-Server) · [指南](./java-server) | 计划中 | 用 Docker 运行 Minecraft: Java Edition 服务端 |
 | [UMC 镜像站](https://github.com/UMC-Community/UMC-Mirror) · [指南](./mirror) | 初步实现 | 仅 HTTPS 上游、下载前 SHA-1 校验的 Go 对象缓存 |
 
 ## 设计原则

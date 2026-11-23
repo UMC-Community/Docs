@@ -4,7 +4,7 @@ source: en/services/java-server.md
 
 # Java 版游戏服务器
 
-UMC Java 版游戏服务器是计划中的可选服务，用于通过 Docker 镜像运行 Minecraft: Java Edition 服务端。
+UMC Java 版游戏服务器是计划中的可选服务，用于通过 Docker 镜像运行 Minecraft: Java Edition 服务端。其代码仓库为 [UMC-Java-Server](https://github.com/UMC-Community/UMC-Java-Server)。
 
 它是**服务端**，不是启动器：它托管世界，供玩家加入。UMC 启动器引擎和认证服务仍然保持独立。
 
@@ -31,7 +31,7 @@ UMC Java 版游戏服务器是计划中的可选服务，用于通过 Docker 镜
 ```yaml
 services:
   server:
-    image: ghcr.io/fps1024/umc-java-server:latest
+    image: ghcr.io/umc-community/umc-java-server:latest
     environment:
       MINECRAFT_VERSION: "1.21.1"
       SERVER_TYPE: paper

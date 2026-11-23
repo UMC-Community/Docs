@@ -1,7 +1,7 @@
 # Java Edition server
 
 The UMC Java Edition server is a planned optional service for running a Minecraft: Java Edition
-server from a Docker image.
+server from a Docker image. Its repository is [UMC-Java-Server](https://github.com/UMC-Community/UMC-Java-Server).
 
 It is a **server**, not a launcher: it hosts worlds for players to join. The UMC launcher engine and
 the auth service remain separate.
@@ -30,7 +30,7 @@ directly and point authlib-injector at [UMC Auth](./auth).
 ```yaml
 services:
   server:
-    image: ghcr.io/fps1024/umc-java-server:latest
+    image: ghcr.io/umc-community/umc-java-server:latest
     environment:
       MINECRAFT_VERSION: "1.21.1"
       SERVER_TYPE: paper
