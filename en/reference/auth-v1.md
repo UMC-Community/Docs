@@ -1,7 +1,7 @@
 # UMC Auth API v1
 
-Status: implemented by `services/auth`. This document is the canonical account API contract for the
-Vue user center, launchers, and administrative clients. The Minecraft-compatible Yggdrasil API stays
+Status: implemented by [UMC-Auth](https://github.com/UMC-Community/UMC-Auth). This document is the
+canonical account API contract for the Vue user center, launchers, and administrative clients. The Minecraft-compatible Yggdrasil API stays
 under `/api/yggdrasil` and is documented separately.
 
 ## Base URL

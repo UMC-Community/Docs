@@ -205,7 +205,7 @@ export default defineConfig({
   lang: 'en-US',
   title: 'Universal Minecraft Core',
   titleTemplate: ':title',
-  srcExclude: ['umc-source/**'],
+  srcExclude: ['umc-source/**', 'umc-auth-source/**'],
   description:
     'UMC is a headless Minecraft: Java Edition launcher engine written in Rust. Install, launch, and supervise the game from your own application.',
   base,

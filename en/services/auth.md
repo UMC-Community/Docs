@@ -3,7 +3,8 @@
 UMC Auth is an optional self-hosted account and authentication service for Minecraft: Java Edition
 communities. It provides a registration website and a Yggdrasil-compatible API for servers that use
 [authlib-injector](https://github.com/yushijinhun/authlib-injector) or a launcher with external
-authentication support.
+authentication support. Its source code and deployment files are in the
+[UMC-Auth repository](https://github.com/UMC-Community/UMC-Auth).
 
 It is written in Go and stores accounts in PostgreSQL. The service is independent from `umc` and
 `umcd`; a community can run it next to UMC or with another launcher.
@@ -14,7 +15,7 @@ UMC Auth runs as three containers: Nginx, the Go auth API, and PostgreSQL. Nginx
 entrypoint. The auth API and database stay on internal Docker networks. The account host serves the
 Vue user center and admin panel and proxies `/api/` to the same auth service.
 
-The deployment environment lives in `services/auth/deploy`. See
+The deployment environment lives in `deploy`. See
 [UMC Auth deployment environment](./auth-deployment) for its architecture, environment variables,
 Nginx configuration, data model, mail plan, and resource budget. The launcher's Microsoft sign-in
 route is separate and unchanged.
@@ -55,7 +56,7 @@ PostgreSQL 17 database.
 From the repository:
 
 ```sh
-cd services/auth/deploy
+cd deploy
 ./scripts/setup.sh
 ```
 
@@ -174,7 +175,7 @@ SMTP_FROM=UMC Auth <no-reply@example.com>
 SMTP_TLS=implicit
 ```
 
-Run `services/auth/deploy/scripts/provision-mail.sh` to create the mail domain, DKIM keys,
+Run `deploy/scripts/provision-mail.sh` to create the mail domain, DKIM keys,
 administrator, no-reply account, and TLS certificate. See
 [the deployment environment](./auth-deployment#self-hosted-mail-stalwart).
 
@@ -240,7 +241,7 @@ ALLOW_INSECURE_HTTP=true
 
 Use that only for local development. In production, Nginx terminates TLS, redirects HTTP to HTTPS,
 sets HSTS, and keeps the auth container port private. After renewing a certificate, reload Nginx
-from `services/auth/deploy`:
+from `deploy`:
 
 ```sh
 docker compose exec nginx nginx -s reload
@@ -337,7 +338,7 @@ GET  /healthz
 ## Backup and restore
 
 Accounts, the RSA signing key, and Minecraft profiles live in the `auth-db` PostgreSQL volume.
-Uploaded skins and capes live in the `auth-uploads` volume. From `services/auth/deploy`:
+Uploaded skins and capes live in the `auth-uploads` volume. From `deploy`:
 
 ```sh
 docker compose stop auth-api
@@ -384,10 +385,9 @@ signing key.
 
 ## Development
 
-Run checks:
+From the repository root, run checks:
 
 ```sh
-cd services/auth
 ./scripts/check.sh
 ```
 

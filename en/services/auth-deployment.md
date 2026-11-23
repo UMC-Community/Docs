@@ -1,7 +1,7 @@
 # UMC Auth deployment environment
 
 This page describes the Docker deployment environment for UMC Auth under
-[`services/auth/deploy`](https://github.com/UMC-Community/UMC/tree/main/services/auth/deploy). Nginx is the
+[`deploy`](https://github.com/UMC-Community/UMC-Auth/tree/main/deploy). Nginx is the
 only public entrypoint; the Go auth API and PostgreSQL stay on internal networks; the account host is
 reserved for the separate web panel; and an optional Stalwart mail profile is included without
 changing the account core.
@@ -106,7 +106,7 @@ plan capacity and migrations.
 ## Repository and server layout
 
 ```text
-services/auth/
+UMC-Auth/
 ├── Dockerfile
 ├── cmd/umc-auth/             # Go service
 ├── web/                      # Vue 3 user center and admin panel
@@ -127,15 +127,15 @@ services/auth/
         └── build-web.sh
 ```
 
-The `auth-api` build context is `services/auth`, because the image is built from the Go source. Keep
+The `auth-api` build context is the UMC-Auth repository root, because the image is built from the Go source. Keep
 the repository checkout on the server, or build and publish the image separately and replace
 `build:` with `image:`.
 
 Recommended server layout:
 
 ```text
-/opt/UMC/                         # repository checkout
-  services/auth/deploy/           # run Compose here
+/opt/UMC-Auth/                    # repository checkout
+  deploy/                         # run Compose here
 /opt/umc-auth-backups/            # database dumps, off-volume backups
 ```
 
@@ -154,8 +154,8 @@ described in [Reuse an existing Nginx](#reuse-an-existing-nginx).
 ### 2. Get the files and create `.env`
 
 ```sh
-git clone https://github.com/UMC-Community/UMC.git /opt/UMC
-cd /opt/UMC/services/auth/deploy
+git clone https://github.com/UMC-Community/UMC-Auth.git /opt/UMC-Auth
+cd /opt/UMC-Auth/deploy
 ./scripts/setup.sh
 $EDITOR .env
 ```
@@ -203,7 +203,7 @@ itself is not packaged; use the tool you already trust.
 ./scripts/build-web.sh
 ```
 
-The script uses `node:22-alpine` and writes `services/auth/web/dist`, which Nginx mounts at
+The script uses `node:22-alpine` and writes `web/dist`, which Nginx mounts at
 `/usr/share/nginx/html/account`. If you have Node 22+ on the host, `cd ../web && npm ci && npm run
 build` is equivalent.
 
@@ -290,7 +290,7 @@ PostgreSQL has no published port and lives on the `internal` network. The `auth-
 accounts and metadata; `auth-uploads` stores skin and cape files.
 
 The schema is managed by embedded versioned migrations in
-`services/auth/cmd/umc-auth/migrations`. `0001` is the original idempotent schema; `0002` adds the
+`cmd/umc-auth/migrations`. `0001` is the original idempotent schema; `0002` adds the
 account API columns and tables and backfills existing rows in place; `0003` enforces non-null
 normalized identity columns. Applied versions are recorded in `schema_migrations`.
 
@@ -574,8 +574,8 @@ periodically. A backup that has never been restored is only a guess.
 Phase 2 makes the Go service the account backend for the Vue panel and the mail system without
 breaking the Yggdrasil endpoints.
 
-1. **Contract.** [`protocols/auth-v1.md`](https://github.com/UMC-Community/UMC/blob/main/protocols/auth-v1.md)
-   and [`protocols/auth-v1.yaml`](https://github.com/UMC-Community/UMC/blob/main/protocols/auth-v1.yaml)
+1. **Contract.** [`protocols/auth-v1.md`](https://github.com/UMC-Community/UMC-Auth/blob/main/protocols/auth-v1.md)
+   and [`protocols/auth-v1.yaml`](https://github.com/UMC-Community/UMC-Auth/blob/main/protocols/auth-v1.yaml)
    define `/api/v1`.
 2. **Migrations.** Embedded versioned SQL migrations replace startup schema creation. `0002` adds
    normalized identity columns, roles, statuses, sessions, verification codes, reset tokens, login
@@ -605,7 +605,7 @@ Phase 3 adds the optional Stalwart mail profile:
 
 Phase 4 adds the Vue 3 user center and admin panel:
 
-- Source in `services/auth/web` (Vue 3, Vue Router, Vite), built to `web/dist`.
+- Source in `web` (Vue 3, Vue Router, Vite), built to `web/dist`.
 - `deploy/scripts/build-web.sh` builds it with a pinned `node:22-alpine` image, so the host does not
   need Node installed.
 - Nginx serves the SPA on `account.example.com` with history-mode fallback and proxies `/api/` to

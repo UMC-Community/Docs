@@ -4,7 +4,7 @@ source: en/services/auth.md
 
 # UMC Auth
 
-UMC Auth 是一个可选的、自托管的 Minecraft: Java Edition 社区账号与认证服务。它提供注册网站，以及供 [authlib-injector](https://github.com/yushijinhun/authlib-injector) 或支持外置登录的启动器使用的 Yggdrasil 兼容 API。
+UMC Auth 是一个可选的、自托管的 Minecraft: Java Edition 社区账号与认证服务。它提供注册网站，以及供 [authlib-injector](https://github.com/yushijinhun/authlib-injector) 或支持外置登录的启动器使用的 Yggdrasil 兼容 API。源码和部署文件位于 [UMC-Auth 仓库](https://github.com/UMC-Community/UMC-Auth)。
 
 它使用 Go 编写，账号存储在 PostgreSQL 中。该服务独立于 `umc` 和 `umcd`，社区可以把它和 UMC 配套运行，也可以配其他启动器使用。
 
@@ -12,7 +12,7 @@ UMC Auth 是一个可选的、自托管的 Minecraft: Java Edition 社区账号�
 
 UMC Auth 由三个容器组成：Nginx、Go 认证 API 和 PostgreSQL。Nginx 是唯一公网入口，认证 API 和数据库位于内部 Docker 网络。用户中心域名提供 Vue 用户中心和管理面板，并把 `/api/` 代理到认证服务。
 
-部署环境位于 `services/auth/deploy`。架构、环境变量、Nginx 配置、数据模型、邮件规划和资源预算见 [UMC Auth 部署环境](./auth-deployment)。启动器的 Microsoft 登录路线独立存在，保持不变。
+部署环境位于 `deploy`。架构、环境变量、Nginx 配置、数据模型、邮件规划和资源预算见 [UMC Auth 部署环境](./auth-deployment)。启动器的 Microsoft 登录路线独立存在，保持不变。
 
 ## 提供的能力
 
@@ -47,7 +47,7 @@ Compose 会自动启动 PostgreSQL 17。如果在 Docker 外运行，需要 Go 1
 在仓库中执行：
 
 ```sh
-cd services/auth/deploy
+cd deploy
 ./scripts/setup.sh
 ```
 
@@ -156,7 +156,7 @@ SMTP_FROM=UMC Auth <no-reply@example.com>
 SMTP_TLS=implicit
 ```
 
-运行 `services/auth/deploy/scripts/provision-mail.sh` 可创建邮件域名、DKIM 密钥、管理员、
+运行 `deploy/scripts/provision-mail.sh` 可创建邮件域名、DKIM 密钥、管理员、
 no-reply 账号和 TLS 证书。参见[部署环境](./auth-deployment#自建邮件-stalwart)。
 
 `SMTP_TLS` 支持 `starttls`、`implicit` 和 `none`。
@@ -215,7 +215,7 @@ POW_DIFFICULTY=16
 ALLOW_INSECURE_HTTP=true
 ```
 
-这只应在本机开发时使用。生产环境中 Nginx 负责 TLS、HTTP 到 HTTPS 跳转、HSTS，并保证 auth 容器端口不直接对外。续期证书后，在 `services/auth/deploy` 中重新加载 Nginx：
+这只应在本机开发时使用。生产环境中 Nginx 负责 TLS、HTTP 到 HTTPS 跳转、HSTS，并保证 auth 容器端口不直接对外。续期证书后，在 `deploy` 中重新加载 Nginx：
 
 ```sh
 docker compose exec nginx nginx -s reload
@@ -309,7 +309,7 @@ GET  /healthz
 ## 备份与恢复
 
 账号、RSA 签名密钥和 Minecraft 档案保存在 `auth-db` PostgreSQL 卷中。上传的皮肤和披风保存在
-`auth-uploads` 卷中。在 `services/auth/deploy` 中执行：
+`auth-uploads` 卷中。在 `deploy` 中执行：
 
 ```sh
 docker compose stop auth-api
@@ -353,7 +353,6 @@ docker compose start auth-api
 运行检查：
 
 ```sh
-cd services/auth
 ./scripts/check.sh
 ```
 

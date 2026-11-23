@@ -4,7 +4,7 @@ source: en/reference/auth-v1.md
 
 # UMC Auth API v1
 
-状态：已由 `services/auth` 实现。本页是 Vue 用户中心、启动器和管理客户端使用的账号 API 契约。
+状态：已由 `UMC-Auth` 实现。本页是 Vue 用户中心、启动器和管理客户端使用的账号 API 契约。
 Minecraft 兼容的 Yggdrasil API 仍位于 `/api/yggdrasil`，另行文档化。
 
 ## 基础地址

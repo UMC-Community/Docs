@@ -12,11 +12,11 @@ npm ci
 npm run docs:dev
 ```
 
-To refresh the API reference pages from the sibling UMC checkout, set `UMC_SOURCE_DIR` to the UMC
-repository path. The standard local layout is `~/UMC-Community/UMC` next to this repository.
+To refresh the API reference pages, keep the sibling UMC and UMC-Auth checkouts at
+`~/UMC-Community/UMC` and `~/UMC-Community/UMC-Auth` next to this repository.
 
 ```sh
-UMC_SOURCE_DIR=../UMC npm run docs:build
+UMC_SOURCE_DIR=../UMC UMC_AUTH_SOURCE_DIR=../UMC-Auth npm run docs:build
 ```
 
 English pages are under `en/`; Chinese translations and generated English fallback pages are under

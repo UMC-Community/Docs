@@ -5,7 +5,7 @@ source: en/services/auth-deployment.md
 # UMC Auth 部署环境
 
 本页介绍 UMC Auth 在
-[`services/auth/deploy`](https://github.com/UMC-Community/UMC/tree/main/services/auth/deploy)
+[`deploy`](https://github.com/UMC-Community/UMC-Auth/tree/main/deploy)
 中的 Docker 部署环境。Nginx 是唯一公网入口，Go 认证 API 和 PostgreSQL 位于内部网络；用户中心域名预留给独立 Web 面板；可选的 Stalwart 邮件 profile 不改变账号核心。
 
 > **状态。** 第一至第五阶段均已实现：Docker 环境、账号 API、自建邮件、Vue 面板、Minecraft
@@ -100,7 +100,7 @@ java -javaagent:authlib-injector.jar=https://auth.example.com/api/yggdrasil \
 ## 仓库与服务器目录
 
 ```text
-services/auth/
+UMC-Auth/
 ├── Dockerfile
 ├── cmd/umc-auth/             # Go 服务
 ├── web/                      # Vue 3 用户中心和管理面板
@@ -121,13 +121,13 @@ services/auth/
         └── build-web.sh
 ```
 
-`auth-api` 的构建上下文是 `services/auth`，因为镜像需要从 Go 源码构建。服务器上请保留仓库检出，或者单独构建并发布镜像，再把 `build:` 换成 `image:`。
+`auth-api` 的构建上下文是 UMC-Auth 仓库根目录，因为镜像需要从 Go 源码构建。服务器上请保留仓库检出，或者单独构建并发布镜像，再把 `build:` 换成 `image:`。
 
 推荐的服务器目录：
 
 ```text
-/opt/UMC/                         # 仓库检出
-  services/auth/deploy/           # 在这里运行 Compose
+/opt/UMC-Auth/                    # 仓库检出
+  deploy/                         # 在这里运行 Compose
 /opt/umc-auth-backups/            # 数据库转储和异地备份
 ```
 
@@ -144,8 +144,8 @@ services/auth/
 ### 2. 获取文件并创建 `.env`
 
 ```sh
-git clone https://github.com/UMC-Community/UMC.git /opt/UMC
-cd /opt/UMC/services/auth/deploy
+git clone https://github.com/UMC-Community/UMC-Auth.git /opt/UMC-Auth
+cd /opt/UMC-Auth/deploy
 ./scripts/setup.sh
 $EDITOR .env
 ```
@@ -187,7 +187,7 @@ docker compose exec nginx nginx -s reload
 ./scripts/build-web.sh
 ```
 
-脚本使用 `node:22-alpine`，把产物写入 `services/auth/web/dist`，Nginx 将其挂载到
+脚本使用 `node:22-alpine`，把产物写入 `web/dist`，Nginx 将其挂载到
 `/usr/share/nginx/html/account`。如果主机已有 Node 22+，也可以执行
 `cd ../web && npm ci && npm run build`。
 
@@ -266,7 +266,7 @@ docker compose up -d auth-api
 PostgreSQL 不发布端口，只位于 `internal` 网络。`auth-db` 卷保存账号和元数据；`auth-uploads`
 卷保存皮肤和披风文件。
 
-表结构由 `services/auth/cmd/umc-auth/migrations` 中的内嵌版本化迁移管理。`0001` 是原始幂等表结构；
+表结构由 `cmd/umc-auth/migrations` 中的内嵌版本化迁移管理。`0001` 是原始幂等表结构；
 `0002` 增加账号 API 所需的列和表，并原地回填已有数据；`0003` 将规范化身份列设为非空。
 已应用的版本记录在 `schema_migrations`。
 
@@ -539,7 +539,8 @@ docker compose --profile mail start mail
 
 第二阶段让 Go 服务成为 Vue 面板和邮件系统的账号后端，同时不破坏 Yggdrasil 接口。
 
-1. **契约。** `protocols/auth-v1.md` 和 `protocols/auth-v1.yaml` 定义 `/api/v1`。
+1. **契约。** [`protocols/auth-v1.md`](https://github.com/UMC-Community/UMC-Auth/blob/main/protocols/auth-v1.md)
+   和 [`protocols/auth-v1.yaml`](https://github.com/UMC-Community/UMC-Auth/blob/main/protocols/auth-v1.yaml) 定义 `/api/v1`。
 2. **迁移。** 内嵌版本化 SQL 迁移替代启动时建表。`0002` 增加规范化身份列、角色、状态、
    会话、验证码、重置令牌、登录记录和发件箱，并原地回填已有数据。
 3. **会话。** Access Token 默认 15 分钟；Refresh Token 默认 30 天并轮换。重复使用已轮换的
@@ -565,7 +566,7 @@ docker compose --profile mail start mail
 
 第四阶段增加 Vue 3 用户中心和管理面板：
 
-- 源码位于 `services/auth/web`（Vue 3、Vue Router、Vite），构建到 `web/dist`。
+- 源码位于 `web`（Vue 3、Vue Router、Vite），构建到 `web/dist`。
 - `deploy/scripts/build-web.sh` 使用固定 `node:22-alpine` 镜像构建，主机不需要安装 Node。
 - Nginx 在 `account.example.com` 提供 SPA，支持 history 模式回退，并把 `/api/` 代理到
   `auth-api:8080`，使 Refresh Cookie 保持第一方。

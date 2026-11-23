@@ -27,6 +27,11 @@ jobs:
         with:
           repository: UMC-Community/UMC
           path: umc-source
+      - name: Checkout UMC-Auth API contract
+        uses: actions/checkout@v6
+        with:
+          repository: UMC-Community/UMC-Auth
+          path: umc-auth-source
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -38,6 +43,7 @@ jobs:
       - name: Build documentation
         env:
           UMC_SOURCE_DIR: ${{ github.workspace }}/umc-source
+          UMC_AUTH_SOURCE_DIR: ${{ github.workspace }}/umc-auth-source
         run: npm run docs:build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
