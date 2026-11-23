@@ -251,6 +251,13 @@ body {
 .VPSidebarItem.level-1.is-active > .item .link .text {
   color: var(--vp-c-brand-1);
 }
+.VPSidebarItem.level-1 .items,
+.VPSidebarItem.level-2 .items,
+.VPSidebarItem.level-3 .items,
+.VPSidebarItem.level-4 .items,
+.VPSidebarItem.level-5 .items {
+  border-left: none !important;
+}
 
 /* --------------------------------------------------------------- Content -- */
 

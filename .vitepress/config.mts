@@ -51,13 +51,13 @@ const englishSidebar = {
         {
           text: 'Quickstart',
           collapsible: true,
-          collapsed: true,
+          collapsed: false,
           items: [{ text: 'Launch your first game', link: '/en/guide/quickstart' }],
         },
         {
           text: 'Install UMC',
           collapsible: true,
-          collapsed: true,
+          collapsed: false,
           items: [
             { text: 'Linux', link: '/en/guide/install' },
             { text: 'Windows (planned)', link: '/en/guide/platforms/windows' },
@@ -67,7 +67,7 @@ const englishSidebar = {
         {
           text: 'User guide',
           collapsible: true,
-          collapsed: true,
+          collapsed: false,
           items: [
             { text: 'Capabilities and concepts', link: '/en/guide/user-guide' },
             { text: 'Managing instances', link: '/en/guide/instances' },
@@ -147,13 +147,13 @@ const chineseSidebar = {
         {
           text: '快速开始',
           collapsible: true,
-          collapsed: true,
+          collapsed: false,
           items: [{ text: '启动第一个游戏', link: '/zh/guide/quickstart' }],
         },
         {
           text: '安装 UMC',
           collapsible: true,
-          collapsed: true,
+          collapsed: false,
           items: [
             { text: 'Linux', link: '/zh/guide/install' },
             { text: 'Windows（计划中）', link: '/zh/guide/platforms/windows' },
@@ -163,7 +163,7 @@ const chineseSidebar = {
         {
           text: '用户指南',
           collapsible: true,
-          collapsed: true,
+          collapsed: false,
           items: [
             { text: '能力与概念', link: '/zh/guide/user-guide' },
             { text: '管理实例', link: '/zh/guide/instances' },
