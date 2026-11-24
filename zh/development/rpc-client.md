@@ -33,7 +33,7 @@ umcd
 成功：
 
 ```json
-{"jsonrpc":"2.0","id":1,"result":{"name":"UMC","version":"0.1.0","api_versions":["v1"]}}
+{"jsonrpc":"2.0","id":1,"result":{"name":"UMC","version":"0.1.1","api_versions":["v1"]}}
 ```
 
 错误：

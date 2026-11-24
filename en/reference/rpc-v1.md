@@ -11,7 +11,7 @@ Transport: newline-delimited JSON over the child's stdin/stdout (`umc rpc --stdi
 Success:
 
 ```json
-{"jsonrpc":"2.0","id":1,"result":{"name":"UMC","version":"0.1.0","api_versions":["v1"]}}
+{"jsonrpc":"2.0","id":1,"result":{"name":"UMC","version":"0.1.1","api_versions":["v1"]}}
 ```
 
 Errors use JSON-RPC reserved errors `-32700` (parse), `-32600` (invalid request), `-32601` (unknown method), `-32602` (invalid params), `-32603` (internal). UMC server errors use `-32000..-32099`; current mapping: `-32001` internal, `-32003` missing resource/process, `-32005` network/install, `-32007` authentication/session failure, `-32009` instance operation, `-32010` Java/launch. Codes are provisional until 1.0 and must not encode Rust implementation details.

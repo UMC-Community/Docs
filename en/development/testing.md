@@ -19,6 +19,21 @@ The declared minimum Rust version is **1.89**. CI verifies the workspace with th
 The test suite uses temporary directories and does not launch a real Minecraft client. Tests that
 would require Mojang downloads are intentionally not part of the automated suite.
 
+## Cross-compilation (experimental)
+
+Windows is not a validated release target yet, but the workspace cross-compiles from Linux with the
+GNU toolchain. On Ubuntu 22.04:
+
+```sh
+rustup target add x86_64-pc-windows-gnu
+sudo apt install -y gcc-mingw-w64-x86-64
+cargo build --workspace --release --target x86_64-pc-windows-gnu
+```
+
+The artifacts are `target/x86_64-pc-windows-gnu/release/umc.exe` and `umcd.exe`. Cross-compiled
+binaries are not part of the release workflow or the manual validation checklist; test them on real
+Windows before relying on them.
+
 ## What the tests cover
 
 - Instance configuration migration from schema version 0 to 1.

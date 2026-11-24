@@ -21,6 +21,19 @@ cargo build --workspace --locked --release
 
 测试套件使用临时目录，不会启动真正的 Minecraft 客户端。需要 Mojang 下载的测试故意不包含在自动测试中。
 
+## 交叉编译（实验性）
+
+Windows 目前不是已验证的发布目标，但工作区可以使用 GNU 工具链从 Linux 交叉编译。在 Ubuntu 22.04 上：
+
+```sh
+rustup target add x86_64-pc-windows-gnu
+sudo apt install -y gcc-mingw-w64-x86-64
+cargo build --workspace --release --target x86_64-pc-windows-gnu
+```
+
+产物为 `target/x86_64-pc-windows-gnu/release/umc.exe` 和 `umcd.exe`。交叉编译的二进制不在发布工作流和
+手工验证清单的覆盖范围内；依赖它们之前请先在真实 Windows 环境中测试。
+
 ## 测试覆盖范围
 
 - 实例配置从 schema 版本 0 迁移到 1。

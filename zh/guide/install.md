@@ -15,9 +15,39 @@ UMC 以 Linux x86_64 GNU 压缩包发布，包含两个可执行文件：
 
 :::
 
+## 环境要求
+
+UMC 在 Linux x86_64 上构建和运行。以下环境经过验证并推荐使用：
+
+| 组件 | 要求 |
+|---|---|
+| 操作系统 | Ubuntu 22.04 LTS，x86_64（推荐且已验证） |
+| Rust | 1.89 或更新版本，通过 [rustup](https://rustup.rs/) 安装 |
+| C 工具链 | `build-essential` 提供的 GCC |
+| 构建工具 | `git`、`curl`、`pkg-config` |
+
+构建已在 Ubuntu 22.04.5 LTS、Rust 1.100.0 和 GCC 11.4 上验证。发布工作流在 Ubuntu 24.04 上构建；
+其他 Linux 发行版只要提供 Rust 1.89+ 和相同的构建工具即可。Windows 和 macOS 是计划中的目标平台，
+尚未纳入发布和支持范围。
+
+在 Ubuntu 或 Debian 上安装系统依赖：
+
+```sh
+sudo apt update
+sudo apt install -y build-essential pkg-config git curl
+```
+
+如果尚未安装 Rust：
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+rustc --version
+```
+
 ## 从源码构建
 
-使用 [rustup](https://rustup.rs/) 安装 Rust 1.89 或更新版本，然后构建工作区：
+构建工作区：
 
 ```sh
 git clone https://github.com/UMC-Community/UMC.git

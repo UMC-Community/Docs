@@ -6,12 +6,23 @@ Microsoft account.
 
 ::: tip Before you start
 
-- **Platform:** Linux x86_64 is the current release target.
+- **Platform:** Linux x86_64 is the current release target. Ubuntu 22.04 LTS is the recommended and
+  verified build environment.
 - **Network:** version lookup, game files, and Java runtimes are downloaded over HTTPS.
-- **Toolchain:** Rust 1.89 or newer. No prebuilt release is currently published, so build from
-  source using the first tab below.
+- **Build tools:** Rust 1.89 or newer via [rustup](https://rustup.rs/), plus GCC, `pkg-config`,
+  `git`, and `curl`.
+- **Release:** No prebuilt release is currently published, so build from source using the first tab
+  below.
 
 :::
+
+On a fresh Ubuntu 22.04 system, install the build dependencies first (see
+[Installation requirements](/en/guide/install#requirements)):
+
+```sh
+sudo apt update
+sudo apt install -y build-essential pkg-config git curl
+```
 
 ## 1. Install UMC
 

@@ -8,11 +8,20 @@ source: en/guide/quickstart.md
 
 ::: tip 开始之前
 
-- **平台：** 当前发布目标是 Linux x86_64。
+- **平台：** 当前发布目标是 Linux x86_64。推荐并使用 Ubuntu 22.04 LTS 作为已验证的构建环境。
 - **网络：** 版本查询、游戏文件和 Java 运行时通过 HTTPS 下载。
-- **工具链：** 需要 Rust 1.89 或更新版本。当前没有已发布的预编译版本，请使用下面的第一个标签从源码构建。
+- **构建工具：** Rust 1.89 或更新版本（通过 [rustup](https://rustup.rs/) 安装），以及 GCC、
+  `pkg-config`、`git` 和 `curl`。
+- **发布：** 当前没有已发布的预编译版本，请使用下面的第一个标签从源码构建。
 
 :::
+
+在全新的 Ubuntu 22.04 系统上，先安装构建依赖（详见[安装环境要求](/zh/guide/install#环境要求)）：
+
+```sh
+sudo apt update
+sudo apt install -y build-essential pkg-config git curl
+```
 
 ## 1. 安装 UMC
 

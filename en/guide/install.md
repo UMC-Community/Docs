@@ -12,9 +12,40 @@ use the prebuilt release commands instead.
 
 :::
 
+## Requirements
+
+UMC builds and runs on Linux x86_64. The following environment is verified and recommended:
+
+| Component | Requirement |
+|---|---|
+| OS | Ubuntu 22.04 LTS, x86_64 (recommended and verified) |
+| Rust | 1.89 or newer via [rustup](https://rustup.rs/) |
+| C toolchain | GCC from `build-essential` |
+| Build tools | `git`, `curl`, `pkg-config` |
+
+The build was verified on Ubuntu 22.04.5 LTS with Rust 1.100.0 and GCC 11.4. The release workflow
+builds on Ubuntu 24.04; other Linux distributions should work when they provide Rust 1.89+ and the
+same build tools. Windows and macOS are planned targets and are not yet part of the release or
+support matrix.
+
+Install the system packages on Ubuntu or Debian:
+
+```sh
+sudo apt update
+sudo apt install -y build-essential pkg-config git curl
+```
+
+Install Rust if it is not already available:
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+rustc --version
+```
+
 ## Build from source
 
-Install Rust 1.89 or newer with [rustup](https://rustup.rs/), then build the workspace:
+Build the workspace:
 
 ```sh
 git clone https://github.com/UMC-Community/UMC.git
